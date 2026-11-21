@@ -1,0 +1,48 @@
+{
+  "name": "pebble-clock",
+  "author": "trashnotslop",
+  "version": "1.0.0",
+  "keywords": [
+    "pebble-app"
+  ],
+  "private": true,
+  "capabilities": [
+    "configurable"
+  ],
+  "dependencies": {
+    "@rebble/clay": "^1.1.0"
+  },
+  "pebble": {
+    "displayName": "Pebble Clock",
+    "uuid": "36d772e2-599d-4518-9b9b-43ffaef0526a",
+    "sdkVersion": "3",
+    "enableMultiJS": true,
+    "targetPlatforms": [
+      "aplite",
+      "basalt",
+      "chalk",
+      "diorite",
+      "emery",
+      "flint",
+      "gabbro"
+    ],
+    "watchapp": {
+      "watchface": true
+    },
+    "messageKeys": [
+      "BackgroundColor",
+      "ForegroundColor",
+      "Digit"
+    ],
+    "resources": {
+      "media": [
+        {
+          "type": "font",
+          "name": "FONT_CHONKY_80",
+          "file": "assets/chonkysmol.ttf",
+          "compatibility": "2.7"
+        }
+      ]
+    }
+  }
+}
