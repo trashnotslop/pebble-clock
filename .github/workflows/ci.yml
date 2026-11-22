@@ -1,4 +1,4 @@
-name: CI
+name: Pebble CI
 on: [push, pull_request]
 
 jobs:
@@ -12,3 +12,63 @@ jobs:
           cd watchface
           pebble build
       - run: echo "Built with SDK ${{ steps.pebble.outputs.sdk-version }}"
+      - name: Upload PBW
+        uses: actions/upload-artifact@v4
+        with:
+          name: pebble-app-pbw
+          path: watchface/build/*.pbw
+  screenshot:
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    strategy:
+      fail-fast: false
+      matrix:
+        platform:
+          - aplite
+          - basalt
+    steps:
+      - name: Checkout caller repo
+        uses: actions/checkout@v4
+
+      - name: Setup Pebble SDK
+        uses: coredevices/pebble-actions@v1
+        with:
+          sdk-version: "latest"
+          pebble-tool-version: ""
+          install-emulator-deps: "true"
+          cache-write: "false"
+
+      - name: Download PBW
+        uses: actions/download-artifact@v4
+        with:
+          name: pebble-app-pbw
+          path: watchface/build/
+
+      - name: Start Xvfb
+        run: |
+          Xvfb :99 -screen 0 1024x768x24 &
+          echo "DISPLAY=:99" >> "$GITHUB_ENV"
+
+      - name: Install app on emulator
+        run: pebble install --emulator ${{ matrix.platform }} ${{ inputs.project-path }}/build/*.pbw
+
+      - name: Wait for app to render
+        run: sleep 8
+
+      - name: Capture screenshot
+        run: pebble screenshot --emulator ${{ matrix.platform }} --no-open screenshot-${{ matrix.platform }}.png
+
+      - name: Kill emulator
+        if: always()
+        run: pebble kill --force
+
+      - name: Validate screenshot
+        run: |
+          file screenshot-${{ matrix.platform }}.png | grep -q "PNG image data"
+
+      - name: Upload screenshot
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshot-${{ matrix.platform }}
+          path: screenshot-${{ matrix.platform }}.png
