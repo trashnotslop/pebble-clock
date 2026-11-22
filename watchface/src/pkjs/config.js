@@ -41,28 +41,32 @@ module.exports = [
         defaultValue: "0",
         options: [
           {
-            label: "H1",
+            label: "DEBUG",
             value: "0",
           },
           {
-            label: "H2",
+            label: "Hours 1",
             value: "1",
           },
           {
-            label: "M1",
+            label: "Hours 2",
             value: "2",
           },
           {
-            label: "M2",
+            label: "Minutes 1",
             value: "3",
           },
           {
-            label: "S1",
+            label: "Minutes 2",
             value: "4",
           },
           {
-            label: "S2",
+            label: "Seconds 1",
             value: "5",
+          },
+          {
+            label: "Seconds 2",
+            value: "6",
           },
         ],
       },

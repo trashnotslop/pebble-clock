@@ -36,12 +36,6 @@
     ],
     "resources": {
       "media": [
-        {
-          "type": "font",
-          "name": "FONT_CHONKY_80",
-          "file": "assets/chonkysmol.ttf",
-          "compatibility": "2.7"
-        }
       ]
     }
   }
