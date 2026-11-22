@@ -30,8 +30,6 @@
       "watchface": true
     },
     "messageKeys": [
-      "BackgroundColor",
-      "ForegroundColor",
       "Digit"
     ],
     "resources": {

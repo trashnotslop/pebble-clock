@@ -27,16 +27,6 @@ void digit_layer_destroy(DigitLayer *layer)
     free(layer);
 }
 
-void digit_layer_set_text_color(DigitLayer *layer, GColor8 color)
-{
-    layer->fg = color;
-}
-
-void digit_layer_set_background_color(DigitLayer *layer, GColor8 color)
-{
-    layer->bg = color;
-}
-
 Layer *digit_layer_get_layer(DigitLayer *layer)
 {
     return bitmap_layer_get_layer(layer->layer);
