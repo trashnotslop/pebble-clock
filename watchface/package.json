@@ -36,6 +36,11 @@
     ],
     "resources": {
       "media": [
+        {
+          "type": "bitmap",
+          "name": "DIGIT_0",
+          "file": "digits/0.png"
+        }
       ]
     }
   }

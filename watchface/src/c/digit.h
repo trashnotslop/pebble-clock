@@ -16,7 +16,7 @@ typedef enum  {
 struct DigitLayer {
     ClockDigit digit;
     Window* window;
-    Layer* layer;
+    BitmapLayer* layer;
     GColor8 bg;
     GColor8 fg;
 };
