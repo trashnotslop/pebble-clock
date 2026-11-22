@@ -1,5 +1,5 @@
-#ifndef DIGIT_H
-#define DIGIT_H
+#ifndef DIGIT_LAYER_H
+#define DIGIT_LAYER_H
 
 #include <pebble.h>
 
@@ -28,4 +28,4 @@ void digit_layer_destroy(DigitLayer *layer);
 Layer *digit_layer_get_layer(DigitLayer *layer);
 void digit_layer_update(DigitLayer *layer, struct tm *tick_time, TimeUnits changed);
 
-#endif
+#endif // DIGIT_LAYER_H

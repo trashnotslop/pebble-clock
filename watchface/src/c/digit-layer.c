@@ -1,15 +1,8 @@
-#include "digit.h"
+#include "digit-layer.h"
 
 static GBitmap *s_bitmap[10];
 
-static GBitmap *prv_get_digit_bitmap(uint8_t digit)
-{
-    if (s_bitmap[digit] == NULL)
-    {
-        s_bitmap[digit] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0 + digit);
-    }
-    return s_bitmap[digit];
-}
+static GBitmap *prv_get_digit_bitmap(uint8_t digit);
 
 DigitLayer *digit_layer_create(Window *window, ClockDigit digit)
 {
@@ -62,4 +55,13 @@ void digit_layer_update(DigitLayer *layer, struct tm *tick_time, TimeUnits chang
     }
 
     bitmap_layer_set_bitmap(layer->layer, prv_get_digit_bitmap(digit_num));
+}
+
+static GBitmap *prv_get_digit_bitmap(uint8_t digit)
+{
+    if (s_bitmap[digit] == NULL)
+    {
+        s_bitmap[digit] = gbitmap_create_with_resource(RESOURCE_ID_DIGIT_0 + digit);
+    }
+    return s_bitmap[digit];
 }

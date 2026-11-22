@@ -1,10 +1,31 @@
 #include <pebble.h>
-#include "digit.h"
+
+#include "digit-layer.h"
 
 static Window *s_window;
-
 static DigitLayer *s_digit_layer;
 static ClockDigit digit = UNSET;
+
+static void prv_window_load(Window *window);
+static void prv_window_unload(Window *window);
+static void prv_inbox_received_handler(DictionaryIterator *iter, void *context);
+static void prv_tick_handler(struct tm *tick_time, TimeUnits changed);
+static void prv_setup_tick_timer(void);
+static void prv_init(void);
+static void prv_deinit(void);
+
+static WindowHandlers handlers = (WindowHandlers){
+    .load = prv_window_load,
+    .unload = prv_window_unload,
+};
+
+int main(void)
+{
+  prv_init();
+  prv_setup_tick_timer();
+  app_event_loop();
+  prv_deinit();
+}
 
 static void prv_window_load(Window *window)
 {
@@ -27,14 +48,16 @@ static void prv_inbox_received_handler(DictionaryIterator *iter, void *context)
   {
     digit = atoi(digit_t->value->cstring);
   }
-  
+
+  // Read backlight preferences
   Tuple *backlight_t = dict_find(iter, MESSAGE_KEY_backlight);
-  if (backlight_t) {
+  if (backlight_t)
+  {
     light_enable(backlight_t->value->int8);
   }
 }
 
-static void tick_handler(struct tm *tick_time, TimeUnits changed)
+static void prv_tick_handler(struct tm *tick_time, TimeUnits changed)
 {
   digit_layer_update(s_digit_layer, tick_time, changed);
 }
@@ -42,22 +65,24 @@ static void tick_handler(struct tm *tick_time, TimeUnits changed)
 static void prv_setup_tick_timer(void)
 {
   TimeUnits tu = SECOND_UNIT;
-  if (digit < 2)
+  switch (digit)
   {
-    tu = HOUR_UNIT;
-  }
-  else if (digit < 4)
-  {
+  case UNSET:
+  case SECONDS_1:
+  case SECONDS_2:
+    break;
+  case MINUTES_1:
+  case MINUTES_2:
     tu = MINUTE_UNIT;
+    break;
+  case HOURS_1:
+  case HOURS_2:
+    tu = HOUR_UNIT;
+    break;
   }
 
-  tick_timer_service_subscribe(tu, tick_handler);
+  tick_timer_service_subscribe(tu, prv_tick_handler);
 }
-
-static WindowHandlers handlers = (WindowHandlers){
-    .load = prv_window_load,
-    .unload = prv_window_unload,
-};
 
 static void prv_init(void)
 {
@@ -72,12 +97,4 @@ static void prv_init(void)
 static void prv_deinit(void)
 {
   window_destroy(s_window);
-}
-
-int main(void)
-{
-  prv_init();
-  prv_setup_tick_timer();
-  app_event_loop();
-  prv_deinit();
 }
