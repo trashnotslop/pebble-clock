@@ -30,7 +30,8 @@
       "watchface": true
     },
     "messageKeys": [
-      "Digit"
+      "digit",
+      "backlight"
     ],
     "resources": {
       "media": [

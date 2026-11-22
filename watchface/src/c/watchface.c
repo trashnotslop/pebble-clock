@@ -22,10 +22,15 @@ static void prv_window_unload(Window *window)
 static void prv_inbox_received_handler(DictionaryIterator *iter, void *context)
 {
   // Read digit preferences
-  Tuple *digit_t = dict_find(iter, MESSAGE_KEY_Digit);
+  Tuple *digit_t = dict_find(iter, MESSAGE_KEY_digit);
   if (digit_t)
   {
     digit = atoi(digit_t->value->cstring);
+  }
+  
+  Tuple *backlight_t = dict_find(iter, MESSAGE_KEY_backlight);
+  if (backlight_t) {
+    light_enable(backlight_t->value->int8);
   }
 }
 
