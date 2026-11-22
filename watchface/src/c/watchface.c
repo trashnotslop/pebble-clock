@@ -58,15 +58,14 @@ static void tick_handler(struct tm *tick_time, TimeUnits changed)
 static void prv_setup_tick_timer(void)
 {
   TimeUnits tu = SECOND_UNIT;
-  // DISABLED FOR DEBUGGING
-  // if (digit < 2)
-  // {
-  //   tu = HOUR_UNIT;
-  // }
-  // else if (digit < 4)
-  // {
-  //   tu = MINUTE_UNIT;
-  // }
+  if (digit < 2)
+  {
+    tu = HOUR_UNIT;
+  }
+  else if (digit < 4)
+  {
+    tu = MINUTE_UNIT;
+  }
 
   tick_timer_service_subscribe(tu, tick_handler);
 }

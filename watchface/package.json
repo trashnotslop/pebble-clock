@@ -39,7 +39,52 @@
         {
           "type": "bitmap",
           "name": "DIGIT_0",
-          "file": "digits/0.png"
+          "file": "0.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_1",
+          "file": "1.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_2",
+          "file": "2.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_3",
+          "file": "3.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_4",
+          "file": "4.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_5",
+          "file": "5.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_6",
+          "file": "6.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_7",
+          "file": "7.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_8",
+          "file": "8.png"
+        },
+        {
+          "type": "bitmap",
+          "name": "DIGIT_9",
+          "file": "9.png"
         }
       ]
     }
