@@ -8,5 +8,6 @@ jobs:
       - uses: actions/checkout@v4
       - uses: spr4bhu/pebble-actions@v1
         id: pebble
+      - run: cd watchface
       - run: pebble build
       - run: echo "Built with SDK ${{ steps.pebble.outputs.sdk-version }}"
